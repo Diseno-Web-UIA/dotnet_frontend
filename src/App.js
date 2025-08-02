@@ -1,25 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';  
+import { Breadcrumb, Layout, Menu, theme } from 'antd';
 
-function App() {
+const { Header, Content, Footer } = Layout;
+
+const items = Array.from({ length: 3 }).map((_, index) => ({
+  key: index + 1,
+  label: `nav ${index + 1}`,
+}));
+
+const App = () => {
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Layout>
+      <Header style={{ display: 'flex', alignItems: 'center' }}>
+        <div className="demo-logo" />
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          defaultSelectedKeys={['2']}
+          items={items}
+          style={{ flex: 1, minWidth: 0 }}
+        />
+      </Header>
+      <Content style={{ padding: '0 48px' }}>
+        <Breadcrumb
+          style={{ margin: '16px 0' }}
+          items={[{ title: 'Home' }, { title: 'List' }, { title: 'App' }]}
+        />
+        <div
+          style={{
+            background: colorBgContainer,
+            minHeight: 280,
+            padding: 24,
+            borderRadius: borderRadiusLG,
+          }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+          <h1 className="App-header">Que</h1>
+        </div>
+      </Content>
+      <Footer style={{ textAlign: 'center' }}>
+        Ayuda ©{new Date().getFullYear()} Created by Ant UED
+      </Footer>
+    </Layout>
   );
-}
+};
 
 export default App;
