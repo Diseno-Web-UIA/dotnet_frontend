@@ -15,17 +15,17 @@
 
 /* Ítem activo */
 .ant-menu-dark .ant-menu-item-selected {
-  background-color: #787FF6 !important;
+  background-color: var(--color-violeta) !important;
   color: #ffffff !important;
 }
 
 /* Hover */
 .ant-menu-dark .ant-menu-item:hover {
-  background-color: #4ADEDE !important;
+  background-color: var(--color-turquesa) !important;
   color: #ffffff !important;
 }
 
 /* Fondo del navbar */
 .ant-layout-header {
-  background-color: #1F2F98 !important;
+  background-color: var(--color-navbar) !important;
 }

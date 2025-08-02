@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { create, all } from 'mathjs';
 import './calculadora.css';
+import { CSSTransition } from 'react-transition-group';
 
 const Calculadora = () => {
   const math = create(all, {});
   const [showCalc, setShowCalc] = useState(false);
   const [calcDato, setCalcDato] = useState('');
+  const calcRef = useRef(null); // ✅ Referencia para nodeRef
 
   const press = (val) => {
     const operators = ['+', '*', '/', '^'];
@@ -30,24 +32,22 @@ const Calculadora = () => {
     setCalcDato((prev) => prev + val);
   };
 
+  const calculate = () => {
+    try {
+      if (!calcDato.trim()) return;
+      const result = math.evaluate(calcDato);
+      if (isNaN(result)) {
+        alert('Resultado inválido');
+        setCalcDato('');
+        return;
+      }
 
-const calculate = () => {
-  try {
-    if (!calcDato.trim()) return;
-    const result = math.evaluate(calcDato);
-    if (isNaN(result)) {
-      alert('Resultado inválido');
+      setCalcDato(result.toString());
+    } catch (e) {
+      alert('Error: ' + e.message);
       setCalcDato('');
-      return;
     }
-
-    setCalcDato(result.toString());
-  } catch (e) {
-    alert('Error: ' + e.message);
-    setCalcDato('');
-  }
-};
-
+  };
 
   const clearDisplay = () => {
     setCalcDato('');
@@ -55,17 +55,20 @@ const calculate = () => {
 
   return (
     <>
-      {/* Botón flotante 🧮 */}
-      <div
-        id="calcBoton"
-        onClick={() => setShowCalc((prev) => !prev)}
-      >
+      {/* Botón flotante */}
+      <div id="calcBoton" onClick={() => setShowCalc((prev) => !prev)}>
         🧮
       </div>
 
-      {/* Calculadora visible si showCalc === true */}
-      {showCalc && (
-        <div id="calculadora">
+      {/* Animación con CSSTransition y nodeRef */}
+      <CSSTransition
+        in={showCalc}
+        timeout={300}
+        classNames="calculadora"
+        unmountOnExit
+        nodeRef={calcRef} // ✅ Evita findDOMNode
+      >
+        <div id="calculadora" ref={calcRef}>
           <input
             type="text"
             id="calcmostrar"
@@ -109,7 +112,7 @@ const calculate = () => {
             </button>
           </div>
         </div>
-      )}
+      </CSSTransition>
     </>
   );
 };

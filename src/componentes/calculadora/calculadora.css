@@ -4,8 +4,8 @@
   right: 25px;
   width: 60px;
   height: 60px;
-  background-color: #4ECDC4;
-  color: white;
+  background-color: var(--color-boton-claro);
+  color: var(--color-texto);
   border-radius: 50%;
   font-size: 30px;
   text-align: center;
@@ -17,20 +17,11 @@
 }
 
 #calcBoton:hover {
-  background-color: #1A535C;
+  background-color: var(--color-turquesa);
+  color: white; 
 }
 
-#calculadora {
-  position: fixed;
-  bottom: 100px;
-  right: 25px;
-  width: 280px;
-  padding: 20px;
-  background: #3A3D98;
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.4);
-  z-index: 1000;
-}
+
 
 #calcmostrar {
   width: 100%;
@@ -77,10 +68,49 @@
 
 .calc-btn.clear {
   grid-column: span 4;
-  background-color: #FF6B6B;
+ background-color: #FF6B6B;
   color: white;
   font-size: 20px;
 }
 .calc-btn.clear:hover {
   background-color: #FF4C4C;
+}
+/* Entrada */
+.calculadora-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.calculadora-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Salida */
+.calculadora-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.calculadora-exit-active {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+
+/* Mantiene la posición fija */
+#calculadora {
+  position: fixed;
+  bottom: 100px;
+  right: 25px;
+  width: 280px;
+  padding: 20px;
+  background: var(--color-azul-oscuro);
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  z-index: 1000;
+  will-change: transform, opacity;
+
 }

@@ -1,17 +1,20 @@
 :root {
-  --color-azul-cielo: #7BD5F5;
-  --color-azul-violeta: #787FF6;
-  --color-turquesa: #4ADEDE;
-  --color-azul-claro: #1CA7EC;
-  --color-azul-oscuro: #1F2F98;
+  --color-azul: #3A8DFF;
+  --color-azul-oscuro: #1A237E;
+  --color-violeta: #7C4DFF;
+  --color-turquesa: #4ECDC4;
+  --color-fondo-claro: #F7FAFC;
+  --color-texto: #2D3748;
+  --color-boton-claro: #FFFFFF;
 }
 
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--color-azul-cielo);
-  color: #333;
+  background-color: var(--color-fondo-claro);
+  color: var(--color-texto);
 }
+
 
 .App {
   text-align: center;
