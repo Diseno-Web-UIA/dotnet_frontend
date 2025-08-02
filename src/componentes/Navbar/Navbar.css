@@ -1,0 +1,18 @@
+/* Estilo para el contenedor del menú si lo necesitas */
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Puedes personalizar los ítems del menú de Ant Design */
+.ant-menu-item {
+  font-weight: bold;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.ant-menu-item:hover {
+  background-color: #1890ff !important;
+  color: white !important;
+}
