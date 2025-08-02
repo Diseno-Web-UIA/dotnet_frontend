@@ -1,5 +1,6 @@
-import React from 'react';  
+import React, { useState } from 'react';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import './App.css';
 
 const { Header, Content, Footer } = Layout;
 
@@ -13,38 +14,151 @@ const App = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
+  // Calculator state
+  const [showCalc, setShowCalc] = useState(false);
+  const [calcDato, setCalcDato] = useState('');
+
+  const press = (val) => {
+    setCalcDato((prev) => prev + val);
+  };
+
+  const calculate = () => {
+    try {
+      setCalcDato((prev) => {
+        // eslint-disable-next-line no-eval
+        const result = eval(prev);
+        return result !== undefined ? result.toString() : '';
+      });
+    } catch (e) {
+      setCalcDato('Error');
+    }
+  };
+
+  const clearDisplay = () => {
+    setCalcDato('');
+  };
+
   return (
-    <Layout>
-      <Header style={{ display: 'flex', alignItems: 'center' }}>
+    <Layout className="layout" style={{ minHeight: '100vh' }}>
+      <Header>
         <div className="demo-logo" />
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={['2']}
-          items={items}
-          style={{ flex: 1, minWidth: 0 }}
-        />
+        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} items={items} />
       </Header>
-      <Content style={{ padding: '0 48px' }}>
-        <Breadcrumb
-          style={{ margin: '16px 0' }}
-          items={[{ title: 'Home' }, { title: 'List' }, { title: 'App' }]}
-        />
+      <Content style={{ padding: '0 50px' }}>
+        <Breadcrumb style={{ margin: '16px 0' }}>
+          <Breadcrumb.Item>Home</Breadcrumb.Item>
+          <Breadcrumb.Item>App</Breadcrumb.Item>
+        </Breadcrumb>
         <div
           style={{
             background: colorBgContainer,
             minHeight: 280,
             padding: 24,
             borderRadius: borderRadiusLG,
+            position: 'relative',
           }}
         >
+          {/* Botón flotante 🧮 */}
+          <div
+            id="calcBoton"
+            onClick={() => setShowCalc((prev) => !prev)}
+            style={{
+              position: 'fixed',
+              bottom: '25px',
+              right: '25px',
+              width: '60px',
+              height: '60px',
+              backgroundColor: 'black',
+              color: 'white',
+              borderRadius: '50%',
+              fontSize: '30px',
+              textAlign: 'center',
+              lineHeight: '60px',
+              cursor: 'pointer',
+              boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.3)',
+              zIndex: 1000,
+            }}
+          >
+            🧮
+          </div>
 
-          <h1 className="App-header">Que</h1>
+          {/* Calculadora visible si showCalc === true */}
+          {showCalc && (
+            <div
+              id="calculadora"
+              style={{
+                position: 'fixed',
+                bottom: '100px',
+                right: '25px',
+                width: '260px',
+                padding: '15px',
+                background: 'white',
+                borderRadius: '10px',
+                boxShadow: '0 0 15px rgba(0,0,0,0.3)',
+                zIndex: 1000,
+              }}
+            >
+              <input
+                type="text"
+                id="calcmostrar"
+                value={calcDato}
+                readOnly
+                style={{
+                  width: '100%',
+                  marginBottom: '8px',
+                  fontSize: '1.2rem',
+                  textAlign: 'right',
+                  padding: '5px',
+                }}
+              />
+              <div
+                className="calc-grid"
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(4, 1fr)',
+                  gap: '8px',
+                }}
+              >
+                {['7', '8', '9', '/',
+                  '4', '5', '6', '*',
+                  '1', '2', '3', '-',
+                  '0', '.', '=', '+'].map((btn, idx) =>
+                    btn === '=' ? (
+                      <button
+                        key={idx}
+                        className="calc-btn"
+                        onClick={calculate}
+                        style={{ fontWeight: 'bold' }}
+                      >
+                        {btn}
+                      </button>
+                    ) : (
+                      <button
+                        key={idx}
+                        className="calc-btn"
+                        onClick={() => press(btn)}
+                      >
+                        {btn}
+                      </button>
+                    )
+                  )}
+                <button
+                  className="calc-btn clear"
+                  onClick={clearDisplay}
+                  style={{
+                    gridColumn: 'span 4',
+                    background: '#f5222d',
+                    color: '#fff',
+                  }}
+                >
+                  C
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </Content>
-      <Footer style={{ textAlign: 'center' }}>
-        Ayuda ©{new Date().getFullYear()} Created by Ant UED
-      </Footer>
+      <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer>
     </Layout>
   );
 };
