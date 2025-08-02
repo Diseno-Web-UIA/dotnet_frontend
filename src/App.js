@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import './App.css';
+import { create, all } from 'mathjs';
 
 const { Header, Content, Footer } = Layout;
 
@@ -13,22 +14,46 @@ const App = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+  const math = create(all, {});
 
   // Calculator state
   const [showCalc, setShowCalc] = useState(false);
   const [calcDato, setCalcDato] = useState('');
 
   const press = (val) => {
+    const operators = ['+', '*', '/', '^'];
+    const lastChar = calcDato.slice(-1);
+
+    if (calcDato === 'Error') {
+      setCalcDato(val);
+      return;
+    }
+
+    if (val === '-') {
+      // Siempre permitimos '-' para negativos y dobles signos menos
+      setCalcDato((prev) => prev + val);
+      return;
+    }
+
+    if (operators.includes(val)) {
+      // Otros operadores solo si el último no es operador ni vacío
+      if (calcDato === '' || ['+', '-', '*', '/', '^'].includes(lastChar)) {
+        return; // ignorar operador inválido
+      }
+      setCalcDato((prev) => prev + val);
+      return;
+    }
+
+    // Para números y otros caracteres válidos
     setCalcDato((prev) => prev + val);
   };
 
   const calculate = () => {
     try {
-      setCalcDato((prev) => {
-        // eslint-disable-next-line no-eval
-        const result = eval(prev);
-        return result !== undefined ? result.toString() : '';
-      });
+      if (!calcDato.trim()) return;
+
+      const result = math.evaluate(calcDato);
+      setCalcDato(result !== undefined ? result.toString() : '');
     } catch (e) {
       setCalcDato('Error');
     }
@@ -37,7 +62,6 @@ const App = () => {
   const clearDisplay = () => {
     setCalcDato('');
   };
-
   return (
     <Layout className="layout" style={{ minHeight: '100vh' }}>
       <Header>
@@ -147,7 +171,7 @@ const App = () => {
                   onClick={clearDisplay}
                   style={{
                     gridColumn: 'span 4',
-                    background: '#f5222d',
+                    background: '#787FF6',
                     color: '#fff',
                   }}
                 >

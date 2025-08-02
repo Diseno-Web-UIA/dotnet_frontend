@@ -89,3 +89,9 @@
   border-radius: 4px;
   cursor: pointer;
 }
+.calc-btn:hover {
+  background-color: #d0d0d0;
+}
+.calc-btn:active {
+  background-color: #c0c0c0;
+}
