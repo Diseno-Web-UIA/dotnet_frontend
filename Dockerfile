@@ -25,6 +25,6 @@ RUN echo 'server {\n\
   }\n\
 }' > /etc/nginx/conf.d/default.conf
 
-EXPOSE 80
+EXPOSE 8084
 
 CMD ["nginx", "-g", "daemon off;"]
