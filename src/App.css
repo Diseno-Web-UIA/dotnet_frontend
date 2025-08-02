@@ -1,3 +1,18 @@
+:root {
+  --color-azul-cielo: #7BD5F5;
+  --color-azul-violeta: #787FF6;
+  --color-turquesa: #4ADEDE;
+  --color-azul-claro: #1CA7EC;
+  --color-azul-oscuro: #1F2F98;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--color-azul-cielo);
+  color: #333;
+}
+
 .App {
   text-align: center;
 }
@@ -14,7 +29,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: var(--color-azul-oscuro);
   min-height: 30vh;
   display: flex;
   flex-direction: column;
@@ -22,22 +37,16 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-.App-footer {
-  background-color: #282c34;
-  color: white;
   padding: 20px;
   text-align: center;
-} 
+}
+
 .App-body {
   padding: 20px;
   background-color: #f0f0f0;
   color: #333;
 }
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
