@@ -2,6 +2,9 @@ import React from 'react';
 import { Menu } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
+import { BiData } from 'react-icons/bi';
+
+
 
 const items = [
   { key: 'registro', label: 'Registro' },
@@ -15,15 +18,23 @@ const Navbar = () => {
     navigate(`/${e.key}`);
   };
 
+
   return (
-    <Menu
-      theme="dark"
-      mode="horizontal"
-      defaultSelectedKeys={['registro']}
-      items={items}
-      onClick={handleClick}
-    />
+    <div className="navbar-container">
+      {/* Logo a la izquierda */}
+      <div className="logo-container">
+        <BiData size={28} color="#787FF6" />
+      </div>
+
+      {/* Menú de navegación a la derecha */}
+      <Menu
+        theme="dark"
+        mode="horizontal"
+        defaultSelectedKeys={['registro']}
+        items={items}
+        onClick={handleClick}
+      />
+    </div>
   );
 };
-
 export default Navbar;

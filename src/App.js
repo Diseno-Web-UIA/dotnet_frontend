@@ -25,7 +25,7 @@ const App = () => {
             <Breadcrumb.Item>Home</Breadcrumb.Item>
             <Breadcrumb.Item>App</Breadcrumb.Item>
           </Breadcrumb>
- */}
+            */}
 
           <div
             style={{
@@ -46,7 +46,7 @@ const App = () => {
         <Calculadora />
 
         <Footer style={{ textAlign: 'center' }}>
-          Ant Design ©2023 Created by Ant UED
+          Grupo 1 ©2023 Creado por Esteban Aguilar
         </Footer>
       </Layout>
     </Router>

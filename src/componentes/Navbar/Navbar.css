@@ -1,11 +1,34 @@
-/* Contenedor del menú */
 .navbar-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: var(--color-navbar); 
+  padding: 0 20px;
+  height: 64px;
 }
 
-/* Estilo base de los ítems del menú */
+/* Logo a la izquierda */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Texto al lado del ícono */
+.logo-text {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+}
+
+/* Fondo del menú forzado a oscuro */
+.custom-menu {
+  background-color: transparent !important;
+  flex-grow: 1;
+  justify-content: flex-end;
+}
+
+/* Ítems del menú con colores personalizados */
 .ant-menu-dark .ant-menu-item {
   font-weight: bold;
   font-size: 16px;
@@ -13,19 +36,12 @@
   color: #ffffff;
 }
 
-/* Ítem activo */
 .ant-menu-dark .ant-menu-item-selected {
   background-color: var(--color-violeta) !important;
   color: #ffffff !important;
 }
 
-/* Hover */
 .ant-menu-dark .ant-menu-item:hover {
   background-color: var(--color-turquesa) !important;
   color: #ffffff !important;
-}
-
-/* Fondo del navbar */
-.ant-layout-header {
-  background-color: var(--color-navbar) !important;
 }
