@@ -5,6 +5,7 @@ import './App.css';
 import Calculadora from './componentes/calculadora/calculadora';
 import Navbar from './componentes/Navbar/Navbar';
 import Registro from './Paginas/Registro';
+import RegistrarPersona from './Paginas/RegistrarPersona';
 import Share from './Paginas/Share';
 
 const { Header, Content, Footer } = Layout;
@@ -13,7 +14,6 @@ const App = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-
   return (
     <Router>
       <Layout className="layout" style={{ minHeight: '100vh' }}>
@@ -37,6 +37,7 @@ const App = () => {
           >
             <Routes>
               <Route path="/registro" element={<Registro />} />
+              <Route path="/registrar-persona" element={<RegistrarPersona />} />
               <Route path="/share" element={<Share />} />
               <Route path="*" element={<Registro />} />
             </Routes>

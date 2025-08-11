@@ -7,7 +7,7 @@
     const math = create(all, {});
     const [showCalc, setShowCalc] = useState(false);
     const [calcDato, setCalcDato] = useState('');
-    const calcRef = useRef(null); // ✅ Referencia para nodeRef
+    const calcRef = useRef(null); 
 
     const press = (val) => {
       const operators = ['+', '*', '/', '^'];
@@ -55,18 +55,17 @@
 
     return (
       <>
-        {/* Botón flotante */}
         <div id="calcBoton" onClick={() => setShowCalc((prev) => !prev)}>
           🧮
         </div>
 
-        {/* Animación con CSSTransition y nodeRef */}
+ 
         <CSSTransition
           in={showCalc}
           timeout={300}
           classNames="calculadora"
           unmountOnExit
-          nodeRef={calcRef} // ✅ Evita findDOMNode
+          nodeRef={calcRef} 
         >
           <div id="calculadora" ref={calcRef}>
             <input
@@ -108,7 +107,6 @@
                   color: '#fff',
                 }}
               >
-                C
               </button>
             </div>
           </div>
