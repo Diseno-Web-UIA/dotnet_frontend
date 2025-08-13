@@ -37,7 +37,10 @@ const App = () => {
               minHeight: 280,
               padding: 24,
               borderRadius: borderRadiusLG,
-              }}
+              backgroundImage: 'url(/bg.jpg)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
           >
             <Routes>
               <Route path="/" element={<Home />} />
@@ -55,7 +58,7 @@ const App = () => {
         <Calculadora />
 
         <Footer style={{ textAlign: 'center' }}>
-          Grupo 1 ©2023 Creado por Esteban Aguilar
+          Universidad Internacional de Las Américas, Diseño Web &copy; 2025 Creado con 💗 por el <b>Grupo 1</b>
         </Footer>
       </Layout>
     </Router>

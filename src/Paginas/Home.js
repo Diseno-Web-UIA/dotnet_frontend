@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 
 const { Title, Paragraph } = Typography;
 
-const Home = () => {
+const Home = ({ fatherStyle = {} }) => {
   const navigate = useNavigate();
 
   const features = [
@@ -55,7 +55,7 @@ const Home = () => {
   ];
 
   return (
-    <div style={{ padding: '24px', minHeight: '100vh' }}>
+    <div style={{ padding: '24px', minHeight: '100vh', ...fatherStyle }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         {/* Header con imagen de agua */}
         <Card 
