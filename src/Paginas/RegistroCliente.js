@@ -31,12 +31,10 @@ const RegistroCliente = () => {
       if (response.success) {
         const clienteRegistrado = response.data;
         
-        console.log('✅ Registro exitoso, mostrando notificaciones...');
-        
         // Mensaje de éxito más visible y duradero
         message.success({
           content: `🎉 ¡Cliente ${values.nombre} ${values.apellido1} registrado exitosamente!`,
-          duration: 8, // Aumentado a 8 segundos
+          duration: 8,
           style: {
             fontSize: '18px',
             fontWeight: 'bold',
@@ -54,7 +52,6 @@ const RegistroCliente = () => {
         
         // Limpiar formulario automáticamente
         form.resetFields();
-        console.log('🧹 Formulario limpiado');
         
         // Mostrar modal de confirmación mejorado
         Modal.success({
@@ -246,62 +243,7 @@ const RegistroCliente = () => {
             </Button>
           </Form.Item>
 
-          {/* Botón de prueba para verificar notificaciones */}
-          <Form.Item>
-            <Button
-              type="dashed"
-              size="large"
-              icon={<UserOutlined />}
-              style={{ width: '100%', height: '45px' }}
-              onClick={() => {
-                console.log('🧪 Botón de prueba clickeado');
-                
-                // Prueba 1: Mensaje simple
-                try {
-                  message.success('🧪 ¡Prueba de notificación exitosa!');
-                  console.log('✅ Mensaje de éxito mostrado');
-                } catch (error) {
-                  console.error('❌ Error al mostrar mensaje:', error);
-                }
-                
-                // Prueba 2: Modal simple
-                setTimeout(() => {
-                  try {
-                    Modal.info({
-                      title: '🧪 Prueba de Modal',
-                      content: 'Si puedes ver esto, las notificaciones funcionan correctamente.',
-                      okText: 'Entendido'
-                    });
-                    console.log('✅ Modal mostrado');
-                  } catch (error) {
-                    console.error('❌ Error al mostrar modal:', error);
-                  }
-                }, 1000);
-                
-                // Prueba 3: Alert nativo del navegador
-                setTimeout(() => {
-                  alert('🧪 Si ves este alert, JavaScript funciona pero Ant Design no');
-                }, 2000);
-              }}
-            >
-              🧪 Probar Notificaciones
-            </Button>
-          </Form.Item>
 
-          {/* Botón de prueba adicional con alert nativo */}
-          <Form.Item>
-            <Button
-              type="dashed"
-              size="large"
-              style={{ width: '100%', height: '45px', backgroundColor: '#ff4d4f', color: 'white' }}
-              onClick={() => {
-                alert('🚨 PRUEBA DE ALERT NATIVO - Si ves esto, JavaScript funciona');
-                console.log('🚨 Alert nativo mostrado');
-              }}
-            >
-              🚨 Probar Alert Nativo
-            </Button>
-          </Form.Item>
         </Form>
       </Card>
     </div>
