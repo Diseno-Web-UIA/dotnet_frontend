@@ -1,10 +1,10 @@
 import axios from 'axios';
+import env from './env';
 
 export const apiRequest = async (metodo, ruta, body = null, params = null) => {
   try {
     // Configuración para desarrollo local vs producción
-    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    const baseUrl = isLocal ? 'http://localhost:5138' : 'https://api.server.asralabs.com';
+    const baseUrl = env("URL_API");
     const url = `${baseUrl}/${ruta}`;
     
     console.log(`🌐 Conectando a: ${url}`);
