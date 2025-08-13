@@ -13,7 +13,8 @@ import {
   message,
   Divider,
   Collapse,
-  InputNumber
+  InputNumber,
+  Modal
 } from 'antd';
 import {
   UserOutlined,
@@ -162,15 +163,90 @@ const RegistrarPersona = () => {
           }
         }
 
-        message.success('Persona registrada exitosamente!');
+        // Mensaje de éxito más visible
+        message.success({
+          content: `🎉 ¡Persona ${values.nombre1} ${values.apellido1} registrada exitosamente!`,
+          duration: 5,
+          style: {
+            fontSize: '16px',
+            fontWeight: 'bold'
+          }
+        });
+        
+        // Limpiar formulario automáticamente
         form.resetFields();
         setEmails([{ email: '', tipo: 1, activo: true, verificado: false }]);
         setTelefonos([{ numero: '', tipo: 1, activo: true }]);
         setDirecciones([{ detalle: '', tipo: 1 }]);
+        
+        // Mostrar modal de confirmación
+        Modal.success({
+          title: (
+            <div style={{ textAlign: 'center', color: '#52c41a' }}>
+              <UserOutlined style={{ fontSize: '32px', marginRight: '12px' }} />
+              ¡Registro Completo Exitoso!
+            </div>
+          ),
+          content: (
+            <div style={{ fontSize: '14px' }}>
+              <div style={{ 
+                background: '#f6ffed', 
+                border: '1px solid #b7eb8f', 
+                borderRadius: '8px', 
+                padding: '16px', 
+                marginBottom: '16px' 
+              }}>
+                <p style={{ margin: '8px 0', fontWeight: 'bold' }}>
+                  ✅ <strong>Persona registrada con todos sus datos</strong>
+                </p>
+              </div>
+              
+              <div style={{ 
+                background: '#f0f9ff', 
+                border: '1px solid #91d5ff', 
+                borderRadius: '8px', 
+                padding: '16px' 
+              }}>
+                <p style={{ margin: '8px 0' }}>
+                  <strong>👤 Nombre:</strong> {values.nombre1} {values.apellido1} {values.apellido2 || ''}
+                </p>
+                <p style={{ margin: '8px 0' }}>
+                  <strong>🆔 ID Asignado:</strong> <span style={{ color: '#1890ff', fontWeight: 'bold' }}>{personaResponse.idPersona}</span>
+                </p>
+                <p style={{ margin: '8px 0' }}>
+                  <strong>📧 Emails:</strong> {emails.filter(e => e.email.trim()).length} registrados
+                </p>
+                <p style={{ margin: '8px 0' }}>
+                  <strong>📱 Teléfonos:</strong> {telefonos.filter(t => t.numero.trim()).length} registrados
+                </p>
+                <p style={{ margin: '8px 0' }}>
+                  <strong>🏠 Direcciones:</strong> {direcciones.filter(d => d.detalle.trim()).length} registradas
+                </p>
+                <p style={{ margin: '8px 0' }}>
+                  <strong>📅 Fecha de Registro:</strong> {new Date().toLocaleString('es-ES')}
+                </p>
+              </div>
+            </div>
+          ),
+          okText: 'Ver Lista de Clientes',
+          cancelText: 'Registrar Otra Persona',
+          onOk: () => {
+            window.location.href = '/lista-clientes';
+          },
+          onCancel: () => {
+            // El formulario ya está limpio, solo cerrar el modal
+          }
+        });
       }
     } catch (error) {
       console.error('Error al registrar persona:', error);
-      message.error('Error al registrar la persona. Por favor, inténtalo de nuevo.');
+      message.error({
+        content: '❌ Error al registrar la persona. Por favor, inténtalo de nuevo.',
+        duration: 5,
+        style: {
+          fontSize: '14px'
+        }
+      });
     } finally {
       setLoading(false);
     }

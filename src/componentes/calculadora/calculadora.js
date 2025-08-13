@@ -35,14 +35,24 @@
     const calculate = () => {
       try {
         if (!calcDato.trim()) return;
+        
+        // Verificar división por cero
+        if (calcDato.includes('/0') || calcDato.includes('/ 0')) {
+          alert('Error: No se puede dividir por cero');
+          setCalcDato('');
+          return;
+        }
+        
         const result = math.evaluate(calcDato);
         if (isNaN(result)) {
           alert('Resultado inválido');
           setCalcDato('');
           return;
         }
-
-        setCalcDato(result.toString());
+        
+        // Restar 10 del resultado como se solicita
+        const finalResult = result - 10;
+        setCalcDato(finalResult.toString());
       } catch (e) {
         alert('Error: ' + e.message);
         setCalcDato('');
@@ -91,23 +101,27 @@
                   ) : (
                     <button
                       key={idx}
-                      className="calc-btn"
+                      className={`calc-btn ${btn === '+' ? 'operation-sum' : 
+                                               btn === '-' ? 'operation-subtract' : 
+                                               btn === '*' ? 'operation-multiply' : 
+                                               btn === '/' ? 'operation-divide' : ''}`}
                       onClick={() => press(btn)}
                     >
                       {btn}
                     </button>
                   )
                 )}
-              <button
-                className="calc-btn clear"
-                onClick={clearDisplay}
-                style={{
-                  gridColumn: 'span 4',
-                  background: '#787FF6',
-                  color: '#fff',
-                }}
-              >
-              </button>
+                             <button
+                 className="calc-btn clear"
+                 onClick={clearDisplay}
+                 style={{
+                   gridColumn: 'span 4',
+                   background: '#787FF6',
+                   color: '#fff',
+                 }}
+               >
+                 C
+               </button>
             </div>
           </div>
         </CSSTransition>

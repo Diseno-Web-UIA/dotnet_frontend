@@ -75,6 +75,43 @@
 .calc-btn.clear:hover {
   background-color: #FF4C4C;
 }
+
+/* Colores diferentes para cada operación aritmética */
+.calc-btn.operation-sum {
+  background-color: #52c41a;
+  color: white;
+}
+
+.calc-btn.operation-sum:hover {
+  background-color: #389e0d;
+}
+
+.calc-btn.operation-subtract {
+  background-color: #fa8c16;
+  color: white;
+}
+
+.calc-btn.operation-subtract:hover {
+  background-color: #d46b08;
+}
+
+.calc-btn.operation-multiply {
+  background-color: #722ed1;
+  color: white;
+}
+
+.calc-btn.operation-multiply:hover {
+  background-color: #531dab;
+}
+
+.calc-btn.operation-divide {
+  background-color: #eb2f96;
+  color: white;
+}
+
+.calc-btn.operation-divide:hover {
+  background-color: #c41d7f;
+}
 /* Entrada */
 .calculadora-enter {
   opacity: 0;

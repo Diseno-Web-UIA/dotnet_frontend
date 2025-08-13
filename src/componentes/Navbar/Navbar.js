@@ -7,8 +7,11 @@ import { BiData } from 'react-icons/bi';
 
 
 const items = [
-  { key: 'registro', label: 'Registro' },
-  { key: 'share', label: 'Share' },
+  { key: 'home', label: 'Inicio' },
+  { key: 'registro', label: 'Registro de Clientes' },
+  { key: 'lista-clientes', label: 'Lista Clientes' },
+  { key: 'exportar', label: 'Exportar Datos' },
+  { key: 'leer-archivos', label: 'Leer Archivos' },
 ];
 
 const Navbar = () => {
@@ -30,7 +33,7 @@ const Navbar = () => {
       <Menu
         theme="dark"
         mode="horizontal"
-        defaultSelectedKeys={['registro']}
+        defaultSelectedKeys={['home']}
         items={items}
         onClick={handleClick}
       />
