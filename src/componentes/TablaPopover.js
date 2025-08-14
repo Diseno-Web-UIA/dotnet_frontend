@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
-import { Popover, Table, Space, Tag, Button } from 'antd';
+import { Popover, Table, Space, Tag, Button, Pagination } from 'antd';
 
-const TablaPopover = ({arrayObjetos}) => {
+const TablaPopover = ({arrayObjetos, btn = null, _key = null}) => {
     const [open, setOpen] = useState(false);
-
-    const hide = () => {
-        setOpen(false);
-    };
 
     const handleOpenChange = (newOpen) => {
         setOpen(newOpen);
@@ -25,13 +21,13 @@ const TablaPopover = ({arrayObjetos}) => {
                     if(Array.isArray(val)) return <Space direction='vertical' size={"small"}>{val.map(item => <Tag key={item} color="blue" style={{marginBottom: '8px'}}>{item}</Tag>)}</Space>;
                     else return val || '-';
                 }
-            }))} dataSource={arrayObjetos.map(item => ({ key: item.id, ...item }))} />}
+            }))} dataSource={!!_key ? arrayObjetos.map(item => ({ key: item[_key], ...item })) : arrayObjetos} />}
         title="Title"
         trigger="click"
         open={open}
         onOpenChange={handleOpenChange}
     >
-        <Button type="primary">Click para ver</Button>
+        {btn || <Button type="primary">Click para ver</Button>}
     </Popover>;
 };
 

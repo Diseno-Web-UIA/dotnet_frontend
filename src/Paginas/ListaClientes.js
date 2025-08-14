@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Card, message, Button, Space, Tag, Statistic, Row, Col, Dropdown, Modal, Form, Input, DatePicker, Select } from 'antd';
+import { Table, Card, message, Button, Space, Tag, Statistic, Row, Col, Dropdown, Modal, Form, Input, DatePicker, Select, Tooltip } from 'antd';
 import { UserOutlined, ReloadOutlined, EyeOutlined, EditOutlined, DeleteOutlined, MoreOutlined } from '@ant-design/icons';
 import { apiRequest } from '../Utils/Api';
 import dayjs from 'dayjs';
+import TablaPopover from '../componentes/TablaPopover';
 
 const ListaClientes = () => {
   const [clientes, setClientes] = useState([]);
@@ -152,7 +153,11 @@ const ListaClientes = () => {
       render: (_, record) => {
         const emailCount = record.emails?.length || 0;
         return emailCount > 0 ? (
-          <Tag color="green">{emailCount} email(s)</Tag>
+          <TablaPopover arrayObjetos={record.emails.map(rec => ({
+            Email: rec.direccion_Email,
+            ["Fecha de Creación"]: rec.fecha_Creacion,
+            ["Fecha de Actualización"]: rec.fecha_Actualizacion
+          }))} _key={"Email"} btn={ <Tooltip title={`Ver ${emailCount} email(s)`}><Tag color="green" style={{ cursor: 'pointer' }}>{emailCount} email(s)</Tag></Tooltip> } />
         ) : (
           <Tag color="default">Sin emails</Tag>
         );
@@ -164,7 +169,12 @@ const ListaClientes = () => {
       render: (_, record) => {
         const telefonoCount = record.telefonos?.length || 0;
         return telefonoCount > 0 ? (
-          <Tag color="orange">{telefonoCount} teléfono(s)</Tag>
+          (
+          <TablaPopover arrayObjetos={record.telefonos.map(item => ({
+            ID: item.idTelefono,
+            Telefono: item.numero,
+          }))} _key={"ID"} btn={ <Tooltip title={`Ver ${telefonoCount} teléfono(s)`}><Tag color="orange" style={{ cursor: 'pointer' }}>{telefonoCount} teléfono(s)</Tag></Tooltip> } />
+        )
         ) : (
           <Tag color="default">Sin teléfonos</Tag>
         );
