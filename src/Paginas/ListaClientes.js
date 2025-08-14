@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Card, message, Button, Space, Tag, Statistic, Row, Col } from 'antd';
-import { UserOutlined, ReloadOutlined, EyeOutlined } from '@ant-design/icons';
+import { Table, Card, message, Button, Space, Tag, Statistic, Row, Col, Dropdown, Modal, Form, Input, DatePicker, Select } from 'antd';
+import { UserOutlined, ReloadOutlined, EyeOutlined, EditOutlined, DeleteOutlined, MoreOutlined } from '@ant-design/icons';
 import { apiRequest } from '../Utils/Api';
+import dayjs from 'dayjs';
 
 const ListaClientes = () => {
   const [clientes, setClientes] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [editModalVisible, setEditModalVisible] = useState(false);
+  const [editingCliente, setEditingCliente] = useState(null);
+  const [editForm] = Form.useForm();
+  const [editLoading, setEditLoading] = useState(false);
 
   const fetchClientes = async () => {
     setLoading(true);
@@ -27,6 +32,79 @@ const ListaClientes = () => {
   useEffect(() => {
     fetchClientes();
   }, []);
+
+  const handleEdit = (record) => {
+    setEditingCliente(record);
+    editForm.setFieldsValue({
+      nombre1: record.nombre1,
+      nombre2: record.nombre2 || '',
+      apellido1: record.apellido1,
+      apellido2: record.apellido2 || '',
+      fecha_Nacimiento: record.fecha_Nacimiento ? dayjs(record.fecha_Nacimiento) : null,
+      genero: record.genero || 1
+    });
+    setEditModalVisible(true);
+  };
+
+  const handleEditSubmit = async (values) => {
+    setEditLoading(true);
+    try {
+      const updateData = {
+        nombre1: values.nombre1,
+        apellido1: values.apellido1,
+        apellido2: values.apellido2 || null,
+        fecha_Nacimiento: values.fecha_Nacimiento ? values.fecha_Nacimiento.format('YYYY-MM-DD') : null,
+        genero: values.genero || 1
+      };
+
+      const response = await apiRequest('PUT', `api/persona/${editingCliente.idPersona}`, updateData);
+      
+      if (response.success) {
+        message.success('Cliente actualizado correctamente');
+        setEditModalVisible(false);
+        setEditingCliente(null);
+        editForm.resetFields();
+        fetchClientes(); // Recargar la lista
+      } else {
+        message.error('Error al actualizar cliente: ' + response.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      message.error('Error de conexión con el servidor');
+    } finally {
+      setEditLoading(false);
+    }
+  };
+
+  const handleEditCancel = () => {
+    setEditModalVisible(false);
+    setEditingCliente(null);
+    editForm.resetFields();
+  };
+
+  const handleDelete = (record) => {
+    Modal.confirm({
+      title: '¿Estás seguro de que quieres eliminar este cliente?',
+      content: `Se eliminará permanentemente: ${record.nombre1} ${record.apellido1}`,
+      okText: 'Sí, eliminar',
+      okType: 'danger',
+      cancelText: 'Cancelar',
+      onOk: async () => {
+        try {
+          const response = await apiRequest('DELETE', `api/persona/${record.idPersona}`);
+          if (response.success) {
+            message.success('Cliente eliminado correctamente');
+            fetchClientes(); // Recargar la lista
+          } else {
+            message.error('Error al eliminar cliente: ' + response.message);
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          message.error('Error de conexión con el servidor');
+        }
+      }
+    });
+  };
 
   const columns = [
     {
@@ -96,16 +174,44 @@ const ListaClientes = () => {
       title: 'Acciones',
       key: 'acciones',
       width: 120,
-      render: (_, record) => (
-        <Space size="small">
-                     <Button
-             type="text"
-             icon={<EyeOutlined />}
-             size="small"
-             onClick={() => message.info(`Ver detalles de ${record.nombre1} ${record.apellido1}`)}
-           />
-        </Space>
-      )
+      render: (_, record) => {
+        const menuItems = [
+          {
+            key: 'view',
+            icon: <EyeOutlined />,
+            label: 'Ver detalles',
+            onClick: () => message.info(`Ver detalles de ${record.nombre1} ${record.apellido1}`)
+          },
+          {
+            key: 'edit',
+            icon: <EditOutlined />,
+            label: 'Editar',
+            onClick: () => handleEdit(record)
+          },
+          {
+            key: 'delete',
+            icon: <DeleteOutlined />,
+            label: 'Eliminar',
+            onClick: () => handleDelete(record),
+            danger: true
+          }
+        ];
+
+        return (
+          <Dropdown
+            menu={{ items: menuItems }}
+            trigger={['click']}
+            placement="bottomRight"
+          >
+            <Button
+              type="text"
+              icon={<MoreOutlined />}
+              size="small"
+              style={{ padding: '4px 8px' }}
+            />
+          </Dropdown>
+        );
+      }
     }
   ];
 
@@ -177,6 +283,65 @@ const ListaClientes = () => {
           scroll={{ x: 800 }}
         />
       </Card>
+
+      <Modal
+        title="Editar Cliente"
+        open={editModalVisible}
+        onOk={editForm.submit}
+        onCancel={handleEditCancel}
+        confirmLoading={editLoading}
+        width={600}
+      >
+        <Form
+          form={editForm}
+          layout="vertical"
+          onFinish={handleEditSubmit}
+        >
+          <Form.Item
+            name="nombre1"
+            label="Nombre"
+            rules={[{ required: true, message: 'Por favor ingrese el nombre' }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="nombre2"
+            label="Segundo Nombre"
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="apellido1"
+            label="Primer Apellido"
+            rules={[{ required: true, message: 'Por favor ingrese el primer apellido' }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="apellido2"
+            label="Segundo Apellido"
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="fecha_Nacimiento"
+            label="Fecha de Nacimiento"
+            rules={[{ required: true, message: 'Por favor seleccione la fecha de nacimiento' }]}
+          >
+            <DatePicker style={{ width: '100%' }} />
+          </Form.Item>
+          <Form.Item
+            name="genero"
+            label="Género"
+            rules={[{ required: true, message: 'Por favor seleccione el género' }]}
+          >
+            <Select>
+              <Select.Option value={1}>Masculino</Select.Option>
+              <Select.Option value={2}>Femenino</Select.Option>
+            </Select>
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   );
 };
