@@ -26,12 +26,14 @@ import {
   DeleteOutlined
 } from '@ant-design/icons';
 import apiRequest from '../Utils/Api';
+import { useNavigate } from 'react-router-dom';
 
 const { Title, Text } = Typography;
 const { Option } = Select;
 const { Panel } = Collapse;
 
 const RegistrarPersona = () => {
+  const navigate = useNavigate();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [emails, setEmails] = useState([{ email: '', tipo: 1, activo: true, verificado: false }]);
@@ -231,7 +233,8 @@ const RegistrarPersona = () => {
           okText: 'Ver Lista de Clientes',
           cancelText: 'Registrar Otra Persona',
           onOk: () => {
-            window.location.href = '/lista-clientes';
+            
+            navigate('/lista-clientes');
           },
           onCancel: () => {
             // El formulario ya está limpio, solo cerrar el modal

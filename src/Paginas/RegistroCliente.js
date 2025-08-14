@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Form, Input, Button, Card, message, Select, Modal } from 'antd';
 import { UserAddOutlined, SaveOutlined, UserOutlined } from '@ant-design/icons';
 import { apiRequest } from '../Utils/Api';
+import { useNavigate } from 'react-router-dom';
 
 const { Option } = Select;
 
 const RegistroCliente = () => {
+  const navigate = useNavigate();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
 
@@ -115,7 +117,7 @@ const RegistroCliente = () => {
           width: 600,
           centered: true,
           onOk: () => {
-            window.location.href = '/lista-clientes';
+            navigate('/lista-clientes');
           },
           onCancel: () => {
             // El formulario ya está limpio, solo cerrar el modal
@@ -161,20 +163,6 @@ const RegistroCliente = () => {
           onFinish={onFinish}
           autoComplete="off"
         >
-          <Form.Item
-            label="Cédula"
-            name="cedula"
-            rules={[
-              { required: true, message: 'Por favor ingrese la cédula' },
-              { pattern: /^\d+$/, message: 'La cédula debe contener solo números' }
-            ]}
-          >
-            <Input 
-              placeholder="Ingrese el número de cédula"
-              size="large"
-              prefix={<UserAddOutlined />}
-            />
-          </Form.Item>
 
           <Form.Item
             label="Nombre"
@@ -237,7 +225,7 @@ const RegistroCliente = () => {
               size="large"
               icon={<UserOutlined />}
               style={{ width: '100%', height: '45px' }}
-              onClick={() => window.location.href = '/lista-clientes'}
+              onClick={() => navigate('/lista-clientes')}
             >
               Ver Lista de Clientes
             </Button>
