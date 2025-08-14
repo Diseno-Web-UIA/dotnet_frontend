@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Fondo circular con gradiente -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4ECDC4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#44A08D;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Fondo circular -->
+  <circle cx="256" cy="256" r="240" fill="url(#bgGradient)" stroke="#1A535C" stroke-width="8"/>
+  
+  <!-- Fondo del formulario principal -->
+  <rect x="80" y="80" width="352" height="352" rx="16" fill="white" stroke="#1A535C" stroke-width="6"/>
+  
+  <!-- Encabezado del formulario -->
+  <rect x="100" y="100" width="312" height="24" rx="12" fill="#1A535C"/>
+  <text x="256" y="117" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">REGISTRO DE CLIENTES</text>
+  
+  <!-- Líneas del formulario -->
+  <rect x="100" y="140" width="312" height="4" rx="2" fill="#1A535C"/>
+  <rect x="100" y="160" width="240" height="4" rx="2" fill="#1A535C"/>
+  <rect x="100" y="180" width="280" height="4" rx="2" fill="#1A535C"/>
+  <rect x="100" y="200" width="200" height="4" rx="2" fill="#1A535C"/>
+  <rect x="100" y="220" width="260" height="4" rx="2" fill="#1A535C"/>
+  <rect x="100" y="240" width="180" height="4" rx="2" fill="#1A535C"/>
+  
+  <!-- Campos de texto -->
+  <rect x="100" y="260" width="312" height="32" fill="white" stroke="#1A535C" stroke-width="2"/>
+  <rect x="100" y="300" width="312" height="32" fill="white" stroke="#1A535C" stroke-width="2"/>
+  
+  <!-- Botón de envío -->
+  <rect x="100" y="350" width="120" height="40" rx="20" fill="#52c41a" stroke="#1A535C" stroke-width="2"/>
+  <text x="160" y="375" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white" text-anchor="middle">ENVIAR</text>
+  
+  <!-- Botón de limpiar -->
+  <rect x="240" y="350" width="120" height="40" rx="20" fill="#FF6B6B" stroke="#1A535C" stroke-width="2"/>
+  <text x="300" y="375" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white" text-anchor="middle">LIMPIAR</text>
+  
+  <!-- Lápiz para editar -->
+  <path d="M380 100 L420 60 L460 100 L420 140 Z" fill="#FF6B6B"/>
+  <circle cx="440" cy="80" r="6" fill="white"/>
+  
+  <!-- Ícono de usuario grande -->
+  <circle cx="420" cy="200" r="32" fill="#722ed1"/>
+  <path d="M420 250 Q420 270 400 270 Q380 270 380 250 Q380 230 400 230 Q420 230 420 250" fill="#722ed1"/>
+  
+  <!-- Ícono de base de datos -->
+  <ellipse cx="420" cy="320" rx="24" ry="8" fill="#fa8c16"/>
+  <rect x="396" y="320" width="48" height="32" fill="#fa8c16"/>
+  <ellipse cx="420" cy="352" rx="24" ry="8" fill="#fa8c16"/>
+  
+  <!-- Texto "Grupo1" -->
+  <text x="256" y="450" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#1A535C" text-anchor="middle">Grupo1 App</text>
+  
+  <!-- Subtítulo -->
+  <text x="256" y="480" font-family="Arial, sans-serif" font-size="18" fill="#1A535C" text-anchor="middle">Sistema de Registro</text>
+</svg>
