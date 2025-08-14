@@ -7,6 +7,7 @@
     const math = create(all, {});
     const [showCalc, setShowCalc] = useState(false);
     const [calcDato, setCalcDato] = useState('');
+    const [resultClass, setResultClass] = useState(''); // Nueva variable para la clase del resultado
     const calcRef = useRef(null); 
 
     const press = (val) => {
@@ -15,6 +16,7 @@
 
       if (calcDato === 'Error') {
         setCalcDato(val);
+        setResultClass(''); // Resetear la clase del resultado
         return;
       }
 
@@ -40,6 +42,7 @@
         if (calcDato.includes('/0') || calcDato.includes('/ 0')) {
           alert('Error: No se puede dividir por cero');
           setCalcDato('');
+          setResultClass('');
           return;
         }
         
@@ -47,20 +50,38 @@
         if (isNaN(result)) {
           alert('Resultado inválido');
           setCalcDato('');
+          setResultClass('');
           return;
+        }
+        
+        // Determinar la operación realizada para aplicar el color correspondiente
+        let operationClass = '';
+        if (calcDato.includes('+')) {
+          operationClass = 'result-sum';
+        } else if (calcDato.includes('-')) {
+          operationClass = 'result-subtract';
+        } else if (calcDato.includes('*')) {
+          operationClass = 'result-multiply';
+        } else if (calcDato.includes('/')) {
+          operationClass = 'result-divide';
+        } else if (calcDato.includes('^')) {
+          operationClass = 'result-power';
         }
         
         // Restar 10 del resultado como se solicita
         const finalResult = result - 10;
         setCalcDato(finalResult.toString());
+        setResultClass(operationClass); // Aplicar la clase del resultado
       } catch (e) {
         alert('Error: ' + e.message);
         setCalcDato('');
+        setResultClass('');
       }
     };
 
     const clearDisplay = () => {
       setCalcDato('');
+      setResultClass(''); // Resetear la clase del resultado
     };
 
     return (
@@ -81,6 +102,7 @@
             <input
               type="text"
               id="calcmostrar"
+              className={resultClass} // Aplicar la clase del resultado
               value={calcDato}
               readOnly
             />

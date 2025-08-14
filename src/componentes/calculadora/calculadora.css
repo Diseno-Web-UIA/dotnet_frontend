@@ -35,6 +35,38 @@
   background-color: #F9F9F9;
   color: #1A535C;
   box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.3s ease; /* Agregar transición suave */
+}
+
+/* Estilos para los resultados según la operación */
+#calcmostrar.result-sum {
+  background-color: #d9f7be;
+  color: #237804;
+  border: 2px solid #52c41a;
+}
+
+#calcmostrar.result-subtract {
+  background-color: #ffe7ba;
+  color: #ad4e00;
+  border: 2px solid #fa8c16;
+}
+
+#calcmostrar.result-multiply {
+  background-color: #f4e6ff;
+  color: #531dab;
+  border: 2px solid #722ed1;
+}
+
+#calcmostrar.result-divide {
+  background-color: #ffe6f7;
+  color: #c41d7f;
+  border: 2px solid #eb2f96;
+}
+
+#calcmostrar.result-power {
+  background-color: #fff2e8;
+  color: #a8071a;
+  border: 2px solid #fa541c;
 }
 
 .calc-grid {
