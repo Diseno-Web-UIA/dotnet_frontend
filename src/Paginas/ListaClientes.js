@@ -38,7 +38,6 @@ const ListaClientes = () => {
     setEditingCliente(record);
     editForm.setFieldsValue({
       nombre1: record.nombre1,
-      nombre2: record.nombre2 || '',
       apellido1: record.apellido1,
       apellido2: record.apellido2 || '',
       fecha_Nacimiento: record.fecha_Nacimiento ? dayjs(record.fecha_Nacimiento) : null,
@@ -311,12 +310,6 @@ const ListaClientes = () => {
             name="nombre1"
             label="Nombre"
             rules={[{ required: true, message: 'Por favor ingrese el nombre' }]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="nombre2"
-            label="Segundo Nombre"
           >
             <Input />
           </Form.Item>
